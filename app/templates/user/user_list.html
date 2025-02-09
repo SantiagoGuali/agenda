@@ -1,0 +1,80 @@
+{% extends "../master.html" %} 
+{% block body %}
+{% load static %}
+
+<div class="content">
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <h2>User List</h2>
+            </div>
+            <div class="col-6" style="text-align: end;">
+                <a style="width: 20%; height: 80%;" href="user_add" class="btn btn-outline-success">+ Add</a>
+            </div>
+        </div>
+    <br><br>
+    <table class="" id="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">email</th>
+                <th class="text-center">Pass</th>
+                <th class="text-center">Code uni</th>
+                <th class="text-center">Profile</th>
+                <th class="text-center">State</th>
+                <th class="text-center">Manager</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+           {% for user in users %}
+                <tr>
+                    <td>{{user.codigo_usu}}</td>
+                    <td>{{user.nombre_usu}}</td>
+                    <td>{{user.email_usu}}</td>
+                    <td>{{user.password_usu}}</td>
+                    <td>{{user.codigo_uni}}</td>
+                    <td>{{user.perfil_usu}}</td>
+                    <td class="text-center">
+                        {% if user.estado_usu == 1 %}
+                        <i class="fa-solid fa-check"></i>
+                        {% else %}
+                        <i class="fa-solid fa-xmark"></i> 
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if user.es_delegado == 1 %}
+                        <i class="fa-solid fa-check"></i>
+                        {% else %}
+                        <i class="fa-solid fa-xmark"></i> 
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'user_update' user.codigo_usu %}" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="{% url 'user_del' user.codigo_usu %}" onclick="return confirm('Are you sure you want to delete it?')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a> 
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>    
+    </div>
+
+    <script>
+        $(document).ready(function() {
+          $('#table').DataTable({
+            "paging": true,       
+            "searching": true,    
+            "ordering": true,      
+            "info": false,  
+            "lengthChange": false,  
+          });
+        });
+      </script>
+
+
+    
+</div>
+{% endblock %}

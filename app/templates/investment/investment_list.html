@@ -1,0 +1,68 @@
+{% extends "../master.html" %} 
+{% block body %}
+{% load static %}
+
+<div class="content">
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <h2>investment List</h2>
+            </div>
+            <div class="col-6" style="text-align: end;">
+                <a style="width: 20%; height: 80%;" href="" class="btn btn-outline-success">+ Add</a>
+            </div>
+        </div>
+    <br><br>
+    <table class="" id="table">
+        <thead>
+            <tr>
+                <th class="text-center">Code</th>
+                <th class="text-center">Investment</th>
+                <th class="text-center">Global investment</th>
+                <th class="text-center">Beneficiaries</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Place</th>
+                <th class="text-center">Code event</th>
+                <th class="text-center"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+           {% for investment in investments %}
+                <tr>
+                    <td>{{investment.codigo_am}}</td>
+                    <td>{{investment.inversion_proyecto_am}}</td>
+                    <td>{{investment.inversion_global_am}}</td>
+                    <td>{{investment.beneficiarios_am}}</td>
+                    <td>{{investment.descripcion_am}}</td>
+                    <td>{{investment.lugar_am}}</td>     
+                    <td>{{investment.codigo_eve}}</td>                
+           
+                    <td class="text-center">
+                        <a href="" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="" onclick="return confirm('Are you sure you want to delete it?')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a> 
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>    
+    </div>
+
+    <script>
+        $(document).ready(function() {
+          $('#table').DataTable({
+            "paging": true,       
+            "searching": true,    
+            "ordering": true,      
+            "info": false,  
+            "lengthChange": false,  
+          });
+        });
+      </script>
+
+
+    
+</div>
+{% endblock %}

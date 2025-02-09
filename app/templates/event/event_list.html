@@ -1,0 +1,100 @@
+{% extends "../master.html" %} 
+{% block body %}
+{% load static %}
+
+<div class="content">
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <h2>event List</h2>
+            </div>
+            <div class="col-6" style="text-align: end;">
+                <a style="width: 20%; height: 80%;" href="" class="btn btn-outline-success">+ Add</a>
+            </div>
+        </div>
+    <br><br>
+    
+    <table class="" id="table">
+        <thead>
+            <tr>
+                <th class="text-center">Code eve</th>
+                <th class="text-center">Code pro</th>
+                <th class="text-center">Code tip</th>
+                <th class="text-center">Code pri</th>
+                <th class="text-center">Code par</th>
+                <th class="text-center">Code usu</th>
+                <th class="text-center">State</th>
+                <th class="text-center">Reason</th>
+                <th class="text-center">Activity</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Number of participants</th>
+                <th class="text-center">Duration</th>
+                <th class="text-center">Place</th>
+                <th class="text-center">Latitud</th>
+                <th class="text-center">Longitud</th>
+                <th class="text-center">Location</th>
+                <th class="text-center">Code dir</th>
+                <th class="text-center">Background</th>
+                <th class="text-center">Vocatives</th>
+                <th class="text-center"></th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+           {% for event in events %}
+                <tr>
+                    <td>{{event.codigo_eve}}</td>
+                    <td>{{event.codigo_pro}}</td>
+                    <td>{{event.codigo_tip}}</td>
+                    <td>{{event.codigo_pri}}</td>
+                    <td>{{event.codigo_par}}</td>
+                    <td>{{event.codigo_usu}}</td>     
+                    <td class="text-center">
+                        {% if event.estado_eve == "Aceptado" %}
+                        <label for="" style="color: green">Aceptado</label>
+                        {% else %}
+                        <label for="" style="color: red">Rechazado</label>
+                        {% endif %}
+                    </td>  
+                    <td>{{event.motivo_rechazo_eve}}</td>
+                    <td>{{event.actividad_eve}}</td>
+                    <td>{{event.fecha_eve}}</td>
+                    <td>{{event.numero_participantes_eve}}</td>
+                    <td>{{event.duracion_minutos_eve}}</td>
+                    <td>{{event.lugar_eve}}</td>     
+                    <td>{{event.latitud_eve}}</td> 
+                    <td>{{event.longitud_eve}}</td>
+                    <td>{{event.ubicacion_eve}}</td>
+                    <td>{{event.codigo_dir}}</td>
+                    <td>{{event.antecedentes_eve}}</td>
+                    <td>{{event.vocativos_eve}}</td>>              
+           
+                    <td class="text-center">
+                        <a href="" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="" onclick="return confirm('Are you sure you want to delete it?')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a> 
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>    
+    </div>
+
+    <script>
+        $(document).ready(function() {
+          $('#table').DataTable({
+            "paging": true,       
+            "searching": true,    
+            "ordering": true,      
+            "info": false,  
+            "lengthChange": false,  
+          });
+        });
+      </script>
+
+
+    
+</div>
+{% endblock %}

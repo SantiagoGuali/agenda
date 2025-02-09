@@ -1,0 +1,125 @@
+{% extends "../master.html" %} 
+{% block body %}
+{% load static %}
+
+
+
+<div class="content">
+    <div class="card">
+        <div class="card-title text-center">
+            <br>
+            <div class="row">
+                <div class="col-1">
+                    <a href="{% url 'user_list' %}"><i class="fa-solid fa-arrow-left fa-3x"></i></a>
+                </div>
+                <div class="col-3">
+                    <h3><b>{% if usuario %}Edit User{% else %}Add a New User{% endif %}</b></h3>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="container-fluid container">
+        <div class="row">
+            <div class="col-md-6">
+                <form id="form" action="{% if usuario %}{% url 'user_update' usuario.codigo_usu %}{% else %}{% url 'user_add' %}{% endif %}" method="post">
+                    {% csrf_token %}
+                    {% if usuario %}
+                        <input type="hidden" name="id" value="{{ usuario.codigo_usu }}">
+                    {% endif %}
+
+                    <label for=""><b>Name:</b></label>
+                    <input type="text" name="name" class="form-control" id="name" value="{{ usuario.nombre_usu|default_if_none:'' }}">
+                    <br>
+
+                    <label for=""><b>Email:</b></label>
+                    <input type="text" name="mail" class="form-control" id="mail" value="{{ usuario.email_usu|default_if_none:'' }}">
+                    <br>
+
+                    <label for=""><b>Password:</b></label>
+                    <input type="text" name="pass" class="form-control" id="pass" value="{{ usuario.password_usu|default_if_none:'' }}">
+                    <br>
+
+                    <label for=""><b>Code:</b></label>
+                    <input type="number" name="code" class="form-control" id="code" value="{{ usuario.codigo_uni|default_if_none:'' }}">
+                    <br>
+            </div>
+
+            <div class="col-md-6">
+                <label for=""><b>Profile:</b></label>
+                <input type="text" name="profile" class="form-control" id="profile" value="{{ usuario.perfil_usu|default_if_none:'' }}">
+                <br>
+
+                <label for=""><b>State:</b></label>
+                <select class="form-control selectpicker" name="state" id="state">
+                    <option value="">Select</option>
+                    <option value="1" {% if usuario and usuario.estado_usu == 1 %}selected{% endif %}>True</option>
+                    <option value="0" {% if usuario and usuario.estado_usu == 0 %}selected{% endif %}>False</option>
+                </select>
+                <br><br>
+
+                <label for=""><b>State Manager:</b></label>
+                <select class="form-control selectpicker" name="stateManager" id="stateManager">
+                    <option value="">Select</option>
+                    <option value="1" {% if usuario and usuario.es_delegado == 1 %}selected{% endif %}>True</option>
+                    <option value="0" {% if usuario and usuario.es_delegado == 0 %}selected{% endif %}>False</option>
+                </select>
+            </div>
+
+            <br>
+            <button type="submit" class="btn btn-primary">{% if usuario %}Update{% else %}Save{% endif %}</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-danger" href="{% url 'user_list' %}">Cancel</a>
+        </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker();
+    
+        $("#form").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 3
+                },
+                mail: {
+                    required: true,
+                    email: true
+                },
+                pass: {
+                    required: true,
+                    minlength: 6
+                },
+                code: {
+                    required: true,
+                    number: true
+                },
+                profile: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                stateManager: {
+                    required: true
+                }
+            },
+            errorClass: "is-invalid",
+            validClass: "is-valid",
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                error.addClass("invalid-feedback");
+                error.insertAfter(element);
+            }
+        });
+    });
+    
+</script>
+{% endblock %}

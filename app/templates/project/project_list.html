@@ -1,0 +1,83 @@
+{% extends "../master.html" %} 
+{% block body %}
+{% load static %}
+
+<div class="content">
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <h2>project List</h2>
+            </div>
+            <div class="col-6" style="text-align: end;">
+                <a style="width: 20%; height: 80%;" href="" class="btn btn-outline-success">+ Add</a>
+            </div>
+        </div>
+    <br><br>
+    <table class="" id="table">
+        <thead>
+            <tr>
+                <th class="text-center">Code</th>
+                <th class="text-center">Code par</th>
+                <th class="text-center">Code od</th>
+                <th class="text-center">Code on</th>
+                <th class="text-center">Code oc</th>
+                <th class="text-center">Code op</th>
+                <th class="text-center">Code poa</th>
+                <th class="text-center">Code mod</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Components</th>
+                <th class="text-center">Total</th>
+                <th class="text-center">First four-month period</th>
+                <th class="text-center">Second four-month period</th>
+                <th class="text-center">Third four-month period</th>
+                <th class="text-center"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+           {% for project in projects %}
+                <tr>
+                    <td>{{project.codigo_pro}}</td>
+                    <td>{{project.codigo_par}}</td>
+                    <td>{{project.codigo_od}}</td>
+                    <td>{{project.codigo_on}}</td>
+                    <td>{{project.codigo_oc}}</td>
+                    <td>{{project.codigo_op}}</td>
+                    <td>{{project.codigo_poa}}</td>
+                    <td>{{project.codigo_mod}}</td>
+                    <td>{{project.nombre_pro}}</td>
+                    <td>{{project.descripcion_pro}}</td>
+                    <td>{{project.componentes_pro }}</td>
+                    <td>{{project.total_financiamiento_pro}}</td>
+                    <td>{{project.primer_cuatrimestre_pro}}</td>
+                    <td>{{project.segundo_cuatrimestre_pro}}</td>
+                    <td>{{project.tercer_cuatrimestre_pro}}</td>
+                    <td class="text-center">
+                        <a href="" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="" onclick="return confirm('Are you sure you want to delete it?')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a> 
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>    
+    </div>
+
+    <script>
+        $(document).ready(function() {
+          $('#table').DataTable({
+            "paging": true,       
+            "searching": true,    
+            "ordering": true,      
+            "info": false,  
+            "lengthChange": false,  
+          });
+        });
+      </script>
+
+
+    
+</div>
+{% endblock %}
